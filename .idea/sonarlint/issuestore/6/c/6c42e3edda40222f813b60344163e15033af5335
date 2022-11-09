@@ -1,9 +1,9 @@
 
 
-java:S1186Ñ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç–¿‰ıÿÿÿÿ
+java:S1186Á"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç–¿‰ıÿÿÿÿ
 
-java:S1186à"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú‘†áøÿÿÿÿ
+java:S1186Ğ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú‘†áøÿÿÿÿ
 9
 java:S2119q"Save and re-use this "Random".(ªôÊáşÿÿÿÿ
 l
-java:S3252û"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼şÿÿÿÿ
+java:S3252ë"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼şÿÿÿÿ

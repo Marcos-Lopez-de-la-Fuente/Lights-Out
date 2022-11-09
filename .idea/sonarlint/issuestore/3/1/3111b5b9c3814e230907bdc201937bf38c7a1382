@@ -15,3 +15,19 @@ l
 java:S3252‘"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼þÿÿÿÿ
 R	java:S125È"<This block of commented-out lines of code should be removed.(ÀÙŒ©
 W	java:S125Î"<This block of commented-out lines of code should be removed.(…ï¡‰úÿÿÿÿ
+
+java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç–¿‰ýÿÿÿÿ
+
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú‘†áøÿÿÿÿ
+B
+java:S1602S",Remove useless curly braces around statement(„Âœ·
+G
+java:S1602W",Remove useless curly braces around statement(½„ýžþÿÿÿÿ
+B
+java:S1602[",Remove useless curly braces around statement(ß¦þò
+G
+java:S1602_",Remove useless curly braces around statement(Êä’¯ùÿÿÿÿ
+l
+java:S3252‘"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼þÿÿÿÿ
+R	java:S125È"<This block of commented-out lines of code should be removed.(ÀÙŒ©
+W	java:S125Î"<This block of commented-out lines of code should be removed.(…ï¡‰úÿÿÿÿ

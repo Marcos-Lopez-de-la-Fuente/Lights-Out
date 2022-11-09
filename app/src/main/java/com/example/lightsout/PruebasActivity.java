@@ -139,60 +139,44 @@ public class PruebasActivity extends AppCompatActivity implements GestureDetecto
         if (row == 0 && column == 0) {
             this.changeBackgroundButton(row, column + 1);
             this.changeBackgroundButton(row + 1, column);
-            this.changeBackgroundButton(row + 1, column + 1);
 
         } else if (row == 0 && column == this.gridMain.getColumnCount() - 1) {
             this.changeBackgroundButton(row, column - 1);
-            this.changeBackgroundButton(row + 1, column - 1);
             this.changeBackgroundButton(row + 1, column);
 
         } else if (row == this.gridMain.getRowCount() - 1 && column == 0) {
             this.changeBackgroundButton(row - 1, column);
-            this.changeBackgroundButton(row - 1, column + 1);
             this.changeBackgroundButton(row, column + 1);
 
         } else if (row == this.gridMain.getRowCount() - 1 && column == this.gridMain.getColumnCount() - 1) {
-            this.changeBackgroundButton(row - 1, column - 1);
             this.changeBackgroundButton(row - 1, column);
             this.changeBackgroundButton(row, column - 1);
 
         } else if (row == 0) {
             this.changeBackgroundButton(row, column - 1);
             this.changeBackgroundButton(row, column + 1);
-            this.changeBackgroundButton(row + 1, column - 1);
             this.changeBackgroundButton(row + 1, column);
-            this.changeBackgroundButton(row + 1, column + 1);
 
         } else if (row == this.gridMain.getRowCount() - 1) {
-            this.changeBackgroundButton(row - 1, column - 1);
             this.changeBackgroundButton(row - 1, column);
-            this.changeBackgroundButton(row - 1, column + 1);
             this.changeBackgroundButton(row, column - 1);
             this.changeBackgroundButton(row, column + 1);
 
         } else if (column == 0) {
             this.changeBackgroundButton(row - 1, column);
-            this.changeBackgroundButton(row - 1, column + 1);
             this.changeBackgroundButton(row, column + 1);
             this.changeBackgroundButton(row + 1, column);
-            this.changeBackgroundButton(row + 1, column + 1);
 
         } else if (column == this.gridMain.getColumnCount() - 1) {
-            this.changeBackgroundButton(row - 1, column - 1);
             this.changeBackgroundButton(row - 1, column);
             this.changeBackgroundButton(row, column - 1);
-            this.changeBackgroundButton(row + 1, column - 1);
             this.changeBackgroundButton(row + 1, column);
 
         } else {
-            this.changeBackgroundButton(row - 1, column - 1);
             this.changeBackgroundButton(row - 1, column);
-            this.changeBackgroundButton(row - 1, column + 1);
             this.changeBackgroundButton(row, column - 1);
             this.changeBackgroundButton(row, column + 1);
-            this.changeBackgroundButton(row + 1, column - 1);
             this.changeBackgroundButton(row + 1, column);
-            this.changeBackgroundButton(row + 1, column + 1);
 
         }
     }
