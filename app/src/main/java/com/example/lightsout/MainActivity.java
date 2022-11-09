@@ -3,8 +3,10 @@ package com.example.lightsout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -13,80 +15,91 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
-    // Attributes
-    private GridLayout gridParent; // GridLayout parent
-    private Drawable items; // Elements in gridLayoutMain
+    private Button nextTestZone;
 
-    // GestureDetector.OnGestureListener
+
+    // Attributes
+    private GridLayout gridParent;
+    private Button threeXThree;
+    private Button forXFor;
+    private Button fiveXFive;
+    private Button sixXSix;
+
+
+    private GridLayout gridMain;
+    private boolean gridChosen = false;
+    private Drawable itemActivate;
+    private Drawable itemDisable;
+
+
     private int swipeMinDistance;
     private int swipeThresholdVelocity;
     private GestureDetectorCompat gestureDetectorCompat;
 
 
-    // Buttons to examples
-    private Button threeXThree;
-    private Button fourXFour;
-    private Button fiveXFive;
-    private Button sixXSix;
-
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("Exercices", "MainActivity.java");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Set atributes
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        this.setGridParent(this.findViewById(R.id.gridParent));
-        this.setItems(this.getDrawable(R.drawable.item));
+        this.nextTestZone = findViewById(R.id.nextTestZone);
+
+
+        this.gridParent = findViewById(R.id.gridParent);
+
+        this.threeXThree = findViewById(R.id.threeXThree);
+        this.forXFor = findViewById(R.id.fourXFour);
+        this.fiveXFive = findViewById(R.id.fiveXFive);
+        this.sixXSix = findViewById(R.id.sixXSix);
+
+        this.setItemActivate(getDrawable(R.drawable.item));
+        this.setItemDisable(getDrawable(R.drawable.item));
 
         this.setSwipeMinDistance(80);
         this.setSwipeThresholdVelocity(50);
-        this.setGestureDetectorCompat(new GestureDetectorCompat(this.getApplicationContext(), this));
+        this.setGestureDetectorCompat(new GestureDetectorCompat(getApplicationContext(), this));
 
 
-        this.setThreeXThree(this.findViewById(R.id.threeXThree));
-        this.setFourXFour(this.findViewById(R.id.fourXFour));
-        this.setFiveXFive(this.findViewById(R.id.fiveXFive));
-        this.setSixXSix(this.findViewById(R.id.sixXSix));
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Buttons to examples
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        this.getThreeXThree().setOnClickListener(view ->
-                this.generateGridLayout(3)
+        this.nextTestZone.setOnClickListener(view ->
+                this.startActivity(new Intent(this, PruebasActivity.class))
         );
 
-        this.getFourXFour().setOnClickListener(view ->
-                this.generateGridLayout(3)
-        );
 
-        this.getFiveXFive().setOnClickListener(view ->
-                this.generateGridLayout(3)
-        );
 
-        this.getSixXSix().setOnClickListener(view ->
-                this.generateGridLayout(3)
-        );
 
+        this.threeXThree.setOnClickListener(view -> {
+            this.generateGridLayout(3);
+        });
+
+        this.forXFor.setOnClickListener(view -> {
+            this.generateGridLayout(4);
+        });
+
+        this.fiveXFive.setOnClickListener(view -> {
+            this.generateGridLayout(5);
+        });
+
+        this.sixXSix.setOnClickListener(view -> {
+            this.generateGridLayout(6);
+        });
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Configure GridLayout and its TextViews
@@ -95,46 +108,40 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
      */
     public void generateGridLayout(int sizeColumnsAndRows) {
 
+        this.createGridLayoutAndParams();
 
-        GridLayout gridLayout = this.createGridLayoutAndParams();
 
         // Setting size of GridLayout
-        this.attributesGridLayout(gridLayout, sizeColumnsAndRows);
+        this.atributesGridLayout(sizeColumnsAndRows);
 
         // Fill GridLayout with TextViews
-        this.fillGridLayout(gridLayout, sizeColumnsAndRows);
+        this.fillGridLayout(sizeColumnsAndRows);
     }
 
+    public void createGridLayoutAndParams() {
 
-    public GridLayout createGridLayoutAndParams() {
+        this.createGridLayout();
 
-        GridLayout gridLayout = this.createGridLayout();
         GridLayout.LayoutParams layoutParams = this.createGridLayoutParams();
 
-        this.getGridParent().addView(gridLayout, layoutParams);
-
-        return gridLayout;
+        this.gridParent.addView(this.gridMain, layoutParams);
     }
 
+    public void createGridLayout() {
+        if (this.gridChosen) {
+            this.gridParent.removeView(this.gridMain);
+        }
+        this.gridChosen = true;
 
-    public GridLayout createGridLayout() {
-
-        GridLayout gridLayout = new GridLayout(this);
-
-        gridLayout.setBackground(this.getDrawable(R.drawable.backgrid));
-
-        return gridLayout;
+        this.gridMain = new GridLayout(this);
+        this.gridMain.setBackground(getDrawable(R.drawable.backgrid));
     }
-
 
     public GridLayout.LayoutParams createGridLayoutParams() {
-
-
         GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(
                 GridLayout.spec(5, 1),
                 GridLayout.spec(0, 3)
         );
-
         layoutParams.width = GridLayout.LayoutParams.MATCH_PARENT;
         layoutParams.setMargins(0, 20, 0, 0);
 
@@ -142,47 +149,47 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
 
-    /**
-     * Configure columns and rows of the GridLayout
-     *
-     * @param gridLayout
-     * @param sizeColumnsAndRows Size chosen by the user
-     */
-    public void attributesGridLayout(GridLayout gridLayout, int sizeColumnsAndRows) {
-        gridLayout.setColumnCount(sizeColumnsAndRows);
-        gridLayout.setRowCount(sizeColumnsAndRows);
-    }
-
-
-    public void fillGridLayout(GridLayout gridLayout, int sizeColumnsAndRows) {
+    public void fillGridLayout(int sizeColumnsAndRows) {
         for (int i = 0; i < sizeColumnsAndRows; i++) {
             for (int j = 0; j < sizeColumnsAndRows; j++) {
-                this.createTextViewIntoGridLayout(gridLayout, j, i, sizeColumnsAndRows);
+                this.createTextViewIntoGridLayout(j, i, sizeColumnsAndRows);
             }
         }
     }
 
 
     /**
+     * Configure columns and rows of the GridLayout
+     *
+     * @param sizeColumnsAndRows Size chosen by the user
+     */
+    public void atributesGridLayout(int sizeColumnsAndRows) {
+        this.gridMain.setColumnCount(sizeColumnsAndRows);
+        this.gridMain.setRowCount(sizeColumnsAndRows);
+    }
+
+
+    /**
      * Fill all the boxes of the GridLayout with TextViews
      *
-     * @param gridLayout
      * @param column             Column of GridLayout to create the new TextView
      * @param row                Row of GridLayout to create the new TextView
      * @param sizeColumnsAndRows Size chosen by the user
      */
-    public void createTextViewIntoGridLayout(GridLayout gridLayout, int column, int row, int sizeColumnsAndRows) {
-        // TextView to Add
-        TextView textView = this.createTextViewToGridLayout(sizeColumnsAndRows);
+    public void createTextViewIntoGridLayout(int column, int row, int sizeColumnsAndRows) {
+
+        // TextView to add
+        TextView textView = createTextViewToGridLayout(sizeColumnsAndRows);
 
         // LayoutParams of GridLayout
-        GridLayout.LayoutParams layoutParams = this.createLayoutParamsToGridLayout(column, row, sizeColumnsAndRows);
+        GridLayout.LayoutParams layoutParams = createLayoutParamsToGridLayout(column, row, sizeColumnsAndRows);
 
-        gridLayout.addView(textView, layoutParams);
+        this.gridMain.addView(textView, layoutParams);
     }
 
+
     /**
-     * Create TextView with attributes of fill GridLayout
+     * Create TextView with attributes to fill GridLayout
      *
      * @param sizeColumnsAndRows Size chosen by the user
      * @return TextView configured
@@ -190,14 +197,17 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     public TextView createTextViewToGridLayout(int sizeColumnsAndRows) {
         TextView textView = new TextView(this);
 
-        textView.setBackground(this.getItems());
+        //textView.setText("1");
+        textView.setBackground(this.getItemDisable());
         textView.setGravity(Gravity.CENTER);
+
 
         // Por ahora no usaré el siguiente método (Cuando toque estilizar el programa jugaré con este método y el choicePaddingText())
         //textView.setTextSize(this.choiceTextSize(sizeColumnsAndRows));
-        int textPadding = this.choicePaddingText(sizeColumnsAndRows);
 
+        int textPadding = this.choicePaddingText(sizeColumnsAndRows);
         textView.setPadding(0, textPadding, 0, textPadding);
+
 
         return textView;
     }
@@ -206,20 +216,19 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     /**
      * Choose the size of the text according to the size chosen by the user
      *
-     * @param sizeColumnsAndRows Size chosen by the users
+     * @param sizeColumnsAndRows Size chosen by the user
      * @return Size of the text
      */
     public int choiceTextSize(int sizeColumnsAndRows) {
-        Map<Integer, Integer> texSize = Map.of(
+        Map<Integer, Integer> textSize = Map.of(
                 3, 45,
                 4, 40,
                 5, 30,
                 6, 20
         );
 
-        return texSize.get(sizeColumnsAndRows);
+        return textSize.get(sizeColumnsAndRows);
     }
-
 
     public int choicePaddingText(int sizeColumnsAndRows) {
         Map<Integer, Integer> paddingText = Map.of(
@@ -272,70 +281,11 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // GestureDetector.OnGestureListener
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        boolean userFling = false;
-
-        float distanceLeft = e1.getX() - e2.getX();
-        float distanceRight = e2.getX() - e1.getX();
-        float distanceTop = e1.getY() - e2.getY();
-        float distanceBottom = e2.getY() - e1.getY();
-
-
-        if (Math.abs(distanceLeft) > Math.abs(distanceTop)) {
-            if (this.flingOptimal(distanceLeft, velocityX)) {
-                this.flingDirectionsControler(StateDirection.LEFT);
-                userFling = true;
-
-            } else if (this.flingOptimal(distanceRight, velocityX)) {
-                this.flingDirectionsControler(StateDirection.RIGHT);
-                userFling = true;
-
-            }
-        } else {
-            if (this.flingOptimal(distanceTop, velocityY)) {
-                this.flingDirectionsControler(StateDirection.TOP);
-                userFling = true;
-
-            } else if (this.flingOptimal(distanceBottom, velocityY)) {
-                this.flingDirectionsControler(StateDirection.BOTTOM);
-                userFling = true;
-            }
-        }
-
-
-        return false;
-    }
-
-
-    // Necessary to detect the method onFling
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (this.gestureDetectorCompat.onTouchEvent(event)) {
-            return true;
-        }
-        return super.onTouchEvent(event);
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     /**
-     * Check if the distance and velocity from method onFling() are optimal to make a action
-     *
-     * @param distance Previously calculated distance
-     * @param velocity Velocity from method onFling()
-     * @return If is optimal to make a action
-     */
-    public boolean flingOptimal(float distance, float velocity) {
-        return (distance > this.getSwipeMinDistance() && Math.abs(velocity) > this.getSwipeThresholdVelocity());
-    }
-
-
-    /**
-     * Controller of Fling from user
+     * Controller of Flings from user
      *
      * @param stateDirection Direction choice of user
      */
@@ -351,15 +301,65 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        // Detect direction from Fling
+        boolean response = false;
+
+        float distanceLeft = e1.getX() - e2.getX();
+        float distanceRight = e2.getX() - e1.getX();
+        float distanceTop = e1.getY() - e2.getY();
+        float distanceBottom = e2.getY() - e1.getY();
+
+
+        if (Math.abs(distanceLeft) > Math.abs(distanceTop)) {
+            if (this.flingOptimal(distanceLeft, velocityX)) {
+                this.flingDirectionsControler(StateDirection.LEFT);
+                response = true;
+
+            } else if (this.flingOptimal(distanceRight, velocityX)) {
+                this.flingDirectionsControler(StateDirection.RIGHT);
+                response = true;
+
+            }
+        } else {
+            if (this.flingOptimal(distanceTop, velocityY)) {
+                this.flingDirectionsControler(StateDirection.TOP);
+                response = true;
+
+            } else if (this.flingOptimal(distanceBottom, velocityY)) {
+                this.flingDirectionsControler(StateDirection.BOTTOM);
+                response = true;
+            }
+        }
+
+        return response;
+    }
+
+
+    /**
+     * Check if the distance and velocity from method onFling() are optimal to make a action
+     *
+     * @param distance Previously calculated distance
+     * @param velocity Velocity from method onFling()
+     * @return If is optimal to make a action
+     */
+    public boolean flingOptimal(float distance, float velocity) {
+        return (distance > this.getSwipeMinDistance() && Math.abs(velocity) > this.getSwipeThresholdVelocity());
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Necessary to detect the method onFling
+        if (this.gestureDetectorCompat.onTouchEvent(event)) {
+            return true;
+        }
+        return super.onTouchEvent(event);
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
     @Override
     public boolean onDown(MotionEvent motionEvent) {
@@ -368,7 +368,6 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public void onShowPress(MotionEvent motionEvent) {
-
     }
 
     @Override
@@ -383,28 +382,51 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
-
     }
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     // Getters and Setters
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public GridLayout getGridParent() {
-        return gridParent;
+    public Button getThreeXThree() {
+        return threeXThree;
     }
 
-    public void setGridParent(GridLayout gridParent) {
-        this.gridParent = gridParent;
+    public void setThreeXThree(Button threeXThree) {
+        this.threeXThree = threeXThree;
     }
 
-    public Drawable getItems() {
-        return items;
+    public Button getForXFor() {
+        return forXFor;
     }
 
-    public void setItems(Drawable items) {
-        this.items = items;
+    public void setForXFor(Button forXFor) {
+        this.forXFor = forXFor;
+    }
+
+    public Button getFiveXFive() {
+        return fiveXFive;
+    }
+
+    public void setFiveXFive(Button fiveXFive) {
+        this.fiveXFive = fiveXFive;
+    }
+
+    public Button getSixXSix() {
+        return sixXSix;
+    }
+
+    public void setSixXSix(Button sixXSix) {
+        this.sixXSix = sixXSix;
+    }
+
+    public GridLayout getGridMain() {
+        return gridMain;
+    }
+
+    public void setGridMain(GridLayout gridMain) {
+        this.gridMain = gridMain;
     }
 
     public int getSwipeMinDistance() {
@@ -431,35 +453,43 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         this.gestureDetectorCompat = gestureDetectorCompat;
     }
 
-    public Button getThreeXThree() {
-        return threeXThree;
+    public Button getNextTestZone() {
+        return nextTestZone;
     }
 
-    public void setThreeXThree(Button threeXThree) {
-        this.threeXThree = threeXThree;
+    public void setNextTestZone(Button nextTestZone) {
+        this.nextTestZone = nextTestZone;
     }
 
-    public Button getFourXFour() {
-        return fourXFour;
+    public GridLayout getGridParent() {
+        return gridParent;
     }
 
-    public void setFourXFour(Button fourXFour) {
-        this.fourXFour = fourXFour;
+    public void setGridParent(GridLayout gridParent) {
+        this.gridParent = gridParent;
     }
 
-    public Button getFiveXFive() {
-        return fiveXFive;
+    public boolean isGridChosen() {
+        return gridChosen;
     }
 
-    public void setFiveXFive(Button fiveXFive) {
-        this.fiveXFive = fiveXFive;
+    public void setGridChosen(boolean gridChosen) {
+        this.gridChosen = gridChosen;
     }
 
-    public Button getSixXSix() {
-        return sixXSix;
+    public Drawable getItemActivate() {
+        return itemActivate;
     }
 
-    public void setSixXSix(Button sixXSix) {
-        this.sixXSix = sixXSix;
+    public void setItemActivate(Drawable itemActivate) {
+        this.itemActivate = itemActivate;
+    }
+
+    public Drawable getItemDisable() {
+        return itemDisable;
+    }
+
+    public void setItemDisable(Drawable itemDisable) {
+        this.itemDisable = itemDisable;
     }
 }

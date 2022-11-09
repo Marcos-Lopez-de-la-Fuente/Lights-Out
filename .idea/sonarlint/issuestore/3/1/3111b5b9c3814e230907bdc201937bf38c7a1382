@@ -1,18 +1,17 @@
 
-¤
-java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç–¿‰ıÿÿÿÿ8Íã›Å0
-¤
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú‘†áøÿÿÿÿ8Íã›Å0
-s
-java:S3252Š"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼şÿÿÿÿ8Øã›Å0
-^	java:S125Å"<This block of commented-out lines of code should be removed.(…ï¡‰úÿÿÿÿ8Şã›Å0
-[
-java:S1854¤"=Remove this useless assignment to local variable "userFling".(ìÕ·Å8áã›Å0
-[
-java:S1854¨"=Remove this useless assignment to local variable "userFling".(ìÕ·Å8áã›Å0
-[
-java:S1854®"=Remove this useless assignment to local variable "userFling".(ìÕ·Å8áã›Å0
-[
-java:S1854²"=Remove this useless assignment to local variable "userFling".(ìÕ·Å8áã›Å0
-L
-java:S1481™".Remove this unused "userFling" local variable.(İ“Éá8áã›Å0
+
+java:S1186ò"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ç–¿‰ıÿÿÿÿ
+
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ú‘†áøÿÿÿÿ
+B
+java:S1602S",Remove useless curly braces around statement(„Âœ·
+G
+java:S1602W",Remove useless curly braces around statement(½„ışÿÿÿÿ
+B
+java:S1602[",Remove useless curly braces around statement(ß¦şò
+G
+java:S1602_",Remove useless curly braces around statement(Êä’¯ùÿÿÿÿ
+l
+java:S3252‘"PUse static access with "android.view.ViewGroup$LayoutParams" for "MATCH_PARENT".(çÂØ¼şÿÿÿÿ
+R	java:S125È"<This block of commented-out lines of code should be removed.(ÀÙŒ©
+W	java:S125Î"<This block of commented-out lines of code should be removed.(…ï¡‰úÿÿÿÿ

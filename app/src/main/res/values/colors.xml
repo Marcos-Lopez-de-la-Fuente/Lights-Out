@@ -13,4 +13,7 @@
     <color name="item_disable">#d6ccc2</color>
     <color name="item_enable">#f5ebe0</color>
     <color name="other_color">#e3d5ca</color>
+    <color name="red">#FF0000</color>
+    <color name="light_red">#ffcccb</color>
+
 </resources>
